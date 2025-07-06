@@ -1,3 +1,74 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Styles personnalisés pour le responsive */
+@layer utilities {
+
+    /* Amélioration du scroll sur mobile */
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Optimisation pour les écrans tactiles */
+    @media (hover: none) and (pointer: coarse) {
+        .hover\:scale-105:hover {
+            transform: none;
+        }
+
+        .hover\:bg-white\/15:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+
+    /* Amélioration de la lisibilité sur mobile */
+    @media (max-width: 640px) {
+        .text-shadow {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+        }
+    }
+
+    /* Optimisation pour les écrans haute densité */
+    @media (-webkit-min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi) {
+        .bg-blur {
+            backdrop-filter: blur(20px);
+        }
+    }
+}
+
+/* Animation de chargement personnalisée */
+@keyframes weather-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.weather-pulse {
+    animation: weather-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Amélioration du focus pour l'accessibilité */
+.focus-visible\:ring-2:focus-visible {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+}
+
+/* Optimisation pour les appareils à écran tactile */
+@media (hover: none) and (pointer: coarse) {
+    .touch-manipulation {
+        touch-action: manipulation;
+    }
+}

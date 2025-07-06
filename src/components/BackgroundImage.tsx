@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { getBackgroundImage } from '../utils/imageApi';
+import React from 'react';
+import { useBackgroundImage } from '../hooks/useBackgroundImage';
 
 interface BackgroundImageProps {
   weatherMain: string;
@@ -7,14 +7,7 @@ interface BackgroundImageProps {
 }
 
 const BackgroundImage: React.FC<BackgroundImageProps> = ({ weatherMain }) => {
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const url = getBackgroundImage(weatherMain);
-    setImageUrl(url);
-    setLoading(false);
-  }, [weatherMain]);
+  const { imageUrl, loading, fadeOut } = useBackgroundImage(weatherMain);
 
   if (loading) {
     return (
@@ -25,11 +18,13 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({ weatherMain }) => {
   return (
     <div className="fixed inset-0 overflow-hidden">
       <div
-        className="absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-out"
+        className={`absolute inset-0 bg-cover bg-center transition-all duration-700 ease-out ${fadeOut ? 'opacity-0' : 'opacity-100'
+          }`}
         style={{
           backgroundImage: `url(${imageUrl})`,
           filter: 'brightness(0.3) saturate(1.2)',
         }}
+        key={`${weatherMain}-${Date.now()}`} // Force le re-render
       />
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900/40 via-blue-900/30 to-slate-900/50" />
     </div>

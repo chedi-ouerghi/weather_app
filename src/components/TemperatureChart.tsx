@@ -56,14 +56,14 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
         data: maxTemps,
         borderColor: 'rgb(239, 68, 68)',
         backgroundColor: 'rgba(239, 68, 68, 0.1)',
-        borderWidth: 3,
+        borderWidth: 2,
         fill: true,
         tension: 0.4,
-        pointRadius: 6,
+        pointRadius: 4,
         pointBackgroundColor: 'rgb(239, 68, 68)',
         pointBorderColor: 'white',
         pointBorderWidth: 2,
-        pointHoverRadius: 8,
+        pointHoverRadius: 6,
         pointHoverBackgroundColor: 'rgb(239, 68, 68)',
         pointHoverBorderColor: 'white',
         pointHoverBorderWidth: 3,
@@ -73,14 +73,14 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
         data: minTemps,
         borderColor: 'rgb(59, 130, 246)',
         backgroundColor: 'rgba(59, 130, 246, 0.1)',
-        borderWidth: 3,
+        borderWidth: 2,
         fill: true,
         tension: 0.4,
-        pointRadius: 6,
+        pointRadius: 4,
         pointBackgroundColor: 'rgb(59, 130, 246)',
         pointBorderColor: 'white',
         pointBorderWidth: 2,
-        pointHoverRadius: 8,
+        pointHoverRadius: 6,
         pointHoverBackgroundColor: 'rgb(59, 130, 246)',
         pointHoverBorderColor: 'white',
         pointHoverBorderWidth: 3,
@@ -102,7 +102,7 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
         labels: {
           color: 'white',
           font: {
-            size: 14,
+            size: 12,
             weight: 'bold',
           },
           usePointStyle: true,
@@ -118,11 +118,11 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
         cornerRadius: 12,
         displayColors: true,
         titleFont: {
-          size: 16,
+          size: 14,
           weight: 'bold',
         },
         bodyFont: {
-          size: 14,
+          size: 12,
         },
         callbacks: {
           label: (context) => {
@@ -142,7 +142,7 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
         ticks: {
           color: 'rgba(255, 255, 255, 0.8)',
           font: {
-            size: 12,
+            size: 10,
             weight: 'bold',
           },
         },
@@ -155,7 +155,7 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
         ticks: {
           color: 'rgba(255, 255, 255, 0.8)',
           font: {
-            size: 12,
+            size: 10,
             weight: 'bold',
           },
           callback: function (value) {
@@ -176,26 +176,26 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 transition-all duration-300 hover:bg-white/15">
-      <h3 className="text-xl font-bold text-white mb-6">Prévision 7 jours</h3>
+    <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-4 sm:p-6 transition-all duration-300 hover:bg-white/15">
+      <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6">Prévision 7 jours</h3>
 
-      <div className="h-80 mb-6">
+      <div className="h-48 sm:h-64 md:h-80 mb-4 sm:mb-6">
         <Line data={data} options={options} />
       </div>
 
       {/* Résumé des prévisions */}
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-1 sm:gap-2">
         {forecast.map((day) => (
-          <div key={day.date} className="text-center p-2 bg-white/5 rounded-xl">
+          <div key={day.date} className="text-center p-1 sm:p-2 bg-white/5 rounded-xl">
             <div className="text-white/60 text-xs mb-1">
               {new Date(day.date).toLocaleDateString('fr-FR', { weekday: 'short' })}
             </div>
             <img
               src={`https://openweathermap.org/img/wn/${day.weather.icon}@2x.png`}
               alt={day.weather.description}
-              className="w-8 h-8 mx-auto mb-1"
+              className="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-1"
             />
-            <div className="text-white text-sm font-semibold">
+            <div className="text-white text-xs sm:text-sm font-semibold">
               {convertTemperature(day.temp.max, temperatureUnit)}°
             </div>
             <div className="text-white/60 text-xs">

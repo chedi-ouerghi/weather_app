@@ -54,7 +54,7 @@ function App() {
   };
 
   return (
-    <div className="h-screen relative overflow-hidden bg-slate-900">
+    <div className="min-h-screen relative overflow-hidden bg-slate-900">
       {/* Background Image */}
       {weatherData && (
         <BackgroundImage
@@ -64,28 +64,28 @@ function App() {
       )}
 
       {/* Main Container */}
-      <div className="relative z-10 h-screen p-6">
-        <div className="h-full max-w-7xl mx-auto">
+      <div className="relative z-10 min-h-screen p-3 sm:p-4 md:p-6">
+        <div className="max-w-7xl mx-auto">
           {/* Loading State */}
           {loading && (
-            <div className="flex flex-col items-center justify-center h-full">
+            <div className="flex flex-col items-center justify-center min-h-screen">
               <Loader />
-              <p className="text-white/80 mt-4">Chargement des données météo...</p>
+              <p className="text-white/80 mt-4 text-center px-4">Chargement des données météo...</p>
             </div>
           )}
 
           {/* Error State */}
           {error && !loading && (
-            <div className="flex items-center justify-center h-full">
-              <div className="bg-red-500/20 backdrop-blur-md border border-red-500/30 rounded-3xl p-8 text-center max-w-md">
-                <AlertCircle className="w-16 h-16 text-red-400 mx-auto mb-4" />
-                <h2 className="text-2xl font-bold text-white mb-2">Erreur</h2>
-                <p className="text-white/80 mb-6">{error}</p>
+            <div className="flex items-center justify-center min-h-screen p-4">
+              <div className="bg-red-500/20 backdrop-blur-md border border-red-500/30 rounded-3xl p-6 sm:p-8 text-center max-w-md w-full">
+                <AlertCircle className="w-12 h-12 sm:w-16 sm:h-16 text-red-400 mx-auto mb-4" />
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">Erreur</h2>
+                <p className="text-white/80 mb-6 text-sm sm:text-base">{error}</p>
                 <button
                   onClick={handleRetry}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition-colors"
+                  className="inline-flex items-center gap-2 px-4 sm:px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-full transition-colors text-sm sm:text-base"
                 >
-                  <RefreshCw className="w-5 h-5" />
+                  <RefreshCw className="w-4 h-4 sm:w-5 sm:h-5" />
                   Réessayer
                 </button>
               </div>
@@ -94,41 +94,43 @@ function App() {
 
           {/* Weather Dashboard */}
           {weatherData && !loading && (
-            <div className="h-full flex flex-col">
+            <div className="min-h-screen flex flex-col">
               {/* Header */}
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-6 gap-4">
                 <div className="flex items-center gap-3">
                   <div className="relative">
-                    <Cloud className="w-8 h-8 text-white" />
-                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full animate-pulse"></div>
+                    <Cloud className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                    <div className="absolute -top-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 bg-blue-500 rounded-full animate-pulse"></div>
                   </div>
-                  <h1 className="text-2xl font-bold text-white bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                  <h1 className="text-xl sm:text-2xl font-bold text-white bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                     WeatherMap
                   </h1>
                 </div>
 
-                <CitySearch
-                  onSearch={searchCities}
-                  onSelectCity={handleSelectCity}
-                  onSelectRecent={handleSelectRecent}
-                  searchResults={searchResults}
-                  recentSearches={recentSearches}
-                  onRequestLocation={requestLocation}
-                  loading={geoLoading}
-                />
+                <div className="w-full sm:w-auto">
+                  <CitySearch
+                    onSearch={searchCities}
+                    onSelectCity={handleSelectCity}
+                    onSelectRecent={handleSelectRecent}
+                    searchResults={searchResults}
+                    recentSearches={recentSearches}
+                    onRequestLocation={requestLocation}
+                    loading={geoLoading}
+                  />
+                </div>
               </div>
 
               {/* Main Content Grid */}
-              <div className="flex-1 grid grid-cols-12 gap-6 min-h-0">
-                {/* Left Column - Location & Danger */}
-                <div className="col-span-3 space-y-4">
+              <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 min-h-0">
+                {/* Left Column - Location & Danger (Mobile: top, Desktop: left) */}
+                <div className="lg:col-span-3 space-y-4 order-1 lg:order-1">
                   {/* Current Location */}
-                  <div className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-4">
-                    <div className="flex items-center gap-2 text-white/60 text-sm mb-2">
+                  <div className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4">
+                    <div className="flex items-center gap-2 text-white/60 text-xs sm:text-sm mb-2">
                       <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
                       {weatherData.location.name}, {weatherData.location.country}
                     </div>
-                    <div className="text-white text-sm">
+                    <div className="text-white text-xs sm:text-sm">
                       {new Date().toLocaleDateString('fr-FR', {
                         weekday: 'long',
                         day: 'numeric',
@@ -141,8 +143,8 @@ function App() {
                   <DangerGauge weatherData={weatherData} />
 
                   {/* Weather Details */}
-                  <div className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-4 space-y-3">
-                    <h3 className="text-white font-semibold text-sm">Détails météo</h3>
+                  <div className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 space-y-3">
+                    <h3 className="text-white font-semibold text-xs sm:text-sm">Détails météo</h3>
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-xs">
                         <div className="flex items-center gap-2">
@@ -169,14 +171,14 @@ function App() {
                   </div>
                 </div>
 
-                {/* Center Column - Main Weather */}
-                <div className="col-span-6 flex flex-col justify-center">
+                {/* Center Column - Main Weather (Mobile: middle, Desktop: center) */}
+                <div className="lg:col-span-6 flex flex-col justify-center order-3 lg:order-2">
                   {/* Main Temperature */}
-                  <div className="text-center mb-8">
-                    <div className="flex items-center justify-center gap-4 mb-6">
+                  <div className="text-center mb-6 sm:mb-8">
+                    <div className="flex items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                       <button
                         onClick={toggleTemperatureUnit}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${temperatureUnit === 'celsius'
+                        className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${temperatureUnit === 'celsius'
                           ? 'bg-white text-black shadow-lg'
                           : 'text-white/60 hover:text-white hover:bg-white/10'
                           }`}
@@ -185,7 +187,7 @@ function App() {
                       </button>
                       <button
                         onClick={toggleTemperatureUnit}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${temperatureUnit === 'fahrenheit'
+                        className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${temperatureUnit === 'fahrenheit'
                           ? 'bg-white text-black shadow-lg'
                           : 'text-white/60 hover:text-white hover:bg-white/10'
                           }`}
@@ -194,31 +196,31 @@ function App() {
                       </button>
                     </div>
 
-                    <div className="text-8xl font-light text-white mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    <div className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-white mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                       {convertTemperature(weatherData.current.temp, temperatureUnit)}°
                     </div>
 
-                    <div className="text-white/80 text-xl mb-6 capitalize">
+                    <div className="text-white/80 text-lg sm:text-xl mb-4 sm:mb-6 capitalize px-4">
                       {weatherData.current.description}
                     </div>
 
                     {/* Min/Max/Feels Like */}
-                    <div className="flex items-center justify-center gap-8">
+                    <div className="flex items-center justify-center gap-4 sm:gap-6 lg:gap-8 px-4">
                       <div className="text-center">
-                        <p className="text-white/60 text-sm">Min</p>
-                        <p className="text-white text-xl font-semibold">
+                        <p className="text-white/60 text-xs sm:text-sm">Min</p>
+                        <p className="text-white text-lg sm:text-xl font-semibold">
                           {convertTemperature(weatherData.current.tempMin, temperatureUnit)}°
                         </p>
                       </div>
                       <div className="text-center">
-                        <p className="text-white/60 text-sm">Max</p>
-                        <p className="text-white text-xl font-semibold">
+                        <p className="text-white/60 text-xs sm:text-sm">Max</p>
+                        <p className="text-white text-lg sm:text-xl font-semibold">
                           {convertTemperature(weatherData.current.tempMax, temperatureUnit)}°
                         </p>
                       </div>
                       <div className="text-center">
-                        <p className="text-white/60 text-sm">Ressenti</p>
-                        <p className="text-white text-xl font-semibold">
+                        <p className="text-white/60 text-xs sm:text-sm">Ressenti</p>
+                        <p className="text-white text-lg sm:text-xl font-semibold">
                           {convertTemperature(weatherData.current.feelsLike, temperatureUnit)}°
                         </p>
                       </div>
@@ -226,8 +228,8 @@ function App() {
                   </div>
 
                   {/* Weekly Forecast */}
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-white/60 text-sm">
+                  <div className="space-y-3 px-4">
+                    <div className="flex items-center justify-between text-white/60 text-xs sm:text-sm">
                       {weatherData.forecast.slice(0, 6).map((day) => (
                         <div key={day.date} className="text-center">
                           {new Date(day.date).toLocaleDateString('fr-FR', { weekday: 'short' })}
@@ -236,7 +238,7 @@ function App() {
                     </div>
 
                     {/* Temperature Chart */}
-                    <div className="relative h-16">
+                    <div className="relative h-12 sm:h-16">
                       <svg className="w-full h-full" viewBox="0 0 600 64">
                         <defs>
                           <linearGradient id="tempGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -275,7 +277,7 @@ function App() {
                       </svg>
                     </div>
 
-                    <div className="flex items-center justify-between text-white text-sm font-semibold">
+                    <div className="flex items-center justify-between text-white text-xs sm:text-sm font-semibold">
                       {weatherData.forecast.slice(0, 6).map((day) => (
                         <div key={day.date} className="text-center">
                           {convertTemperature(day.temp.day, temperatureUnit)}°
@@ -286,12 +288,12 @@ function App() {
 
                 </div>
 
-                {/* Right Column - Recent Searches */}
-                <div className="col-span-3">
-                  <div className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-4 h-full">
+                {/* Right Column - Recent Searches (Mobile: bottom, Desktop: right) */}
+                <div className="lg:col-span-3 order-2 lg:order-3">
+                  <div className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 h-full">
                     <div className="flex items-center gap-2 mb-4">
-                      <Clock className="w-5 h-5 text-orange-400" />
-                      <h3 className="text-white font-semibold">Recherches récentes</h3>
+                      <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" />
+                      <h3 className="text-white font-semibold text-sm sm:text-base">Recherches récentes</h3>
                     </div>
 
                     <div className="space-y-2 max-h-[calc(100%-3rem)] overflow-y-auto">
@@ -299,17 +301,17 @@ function App() {
                         <button
                           key={recent.id}
                           onClick={() => handleSelectRecent(recent)}
-                          className="w-full flex items-center justify-between p-3 hover:bg-white/10 rounded-xl transition-all duration-300 group"
+                          className="w-full flex items-center justify-between p-2 sm:p-3 hover:bg-white/10 rounded-xl transition-all duration-300 group"
                         >
                           <div className="text-left">
-                            <div className="text-white text-sm font-medium group-hover:text-blue-400 transition-colors">
+                            <div className="text-white text-xs sm:text-sm font-medium group-hover:text-blue-400 transition-colors">
                               {recent.name}
                             </div>
                             <div className="text-white/60 text-xs">{recent.country}</div>
                           </div>
                           {recent.quickWeather && (
                             <div className="text-right">
-                              <div className="text-white text-sm font-bold">
+                              <div className="text-white text-xs sm:text-sm font-bold">
                                 {Math.round(recent.quickWeather.temp)}°
                               </div>
                               <div className="text-white/60 text-xs capitalize">
@@ -321,8 +323,8 @@ function App() {
                       ))}
 
                       {recentSearches.length === 0 && (
-                        <div className="text-center py-8">
-                          <div className="text-white/40 text-sm">
+                        <div className="text-center py-6 sm:py-8">
+                          <div className="text-white/40 text-xs sm:text-sm">
                             Aucune recherche récente
                           </div>
                         </div>
@@ -336,29 +338,29 @@ function App() {
 
           {/* Initial State */}
           {!weatherData && !loading && !error && (
-            <div className="flex items-center justify-center h-full">
-              <div className="text-center max-w-md">
+            <div className="flex items-center justify-center min-h-screen p-4">
+              <div className="text-center max-w-md w-full">
                 <div className="relative mb-6">
-                  <Cloud className="w-24 h-24 text-white/50 mx-auto" />
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-blue-500 rounded-full animate-pulse"></div>
+                  <Cloud className="w-16 h-16 sm:w-24 sm:h-24 text-white/50 mx-auto" />
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 sm:w-6 sm:h-6 bg-blue-500 rounded-full animate-pulse"></div>
                 </div>
-                <h2 className="text-3xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
                   Bienvenue dans WeatherMap
                 </h2>
-                <p className="text-white/80 text-lg mb-6">
+                <p className="text-white/80 text-base sm:text-lg mb-6">
                   Découvrez la météo en temps réel
                 </p>
                 <button
                   onClick={requestLocation}
                   disabled={geoLoading}
-                  className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-full transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50"
+                  className="inline-flex items-center gap-3 px-4 sm:px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white rounded-full transition-all duration-300 shadow-lg hover:shadow-xl disabled:opacity-50 text-sm sm:text-base"
                 >
-                  <Navigation className="w-5 h-5" />
+                  <Navigation className="w-4 h-4 sm:w-5 sm:h-5" />
                   {geoLoading ? 'Détection...' : 'Utiliser ma position'}
                 </button>
                 {geoError && (
-                  <div className="bg-orange-500/20 backdrop-blur-md border border-orange-500/30 rounded-2xl p-4 mt-4">
-                    <p className="text-orange-200 text-sm">{geoError}</p>
+                  <div className="bg-orange-500/20 backdrop-blur-md border border-orange-500/30 rounded-2xl p-3 sm:p-4 mt-4">
+                    <p className="text-orange-200 text-xs sm:text-sm">{geoError}</p>
                   </div>
                 )}
               </div>

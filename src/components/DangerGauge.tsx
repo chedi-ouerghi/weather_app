@@ -12,31 +12,31 @@ const DangerGauge: React.FC<DangerGaugeProps> = ({ weatherData }) => {
   // Calcul du niveau de danger (0-100)
   const calculateDangerLevel = (): number => {
     let danger = 0;
-    
+
     // Température extrême
     if (current.temp < -10 || current.temp > 35) danger += 30;
     else if (current.temp < 0 || current.temp > 30) danger += 15;
-    
+
     // Vent fort
     if (current.windSpeed > 50) danger += 40;
     else if (current.windSpeed > 30) danger += 20;
     else if (current.windSpeed > 20) danger += 10;
-    
+
     // Conditions météo dangereuses
     if (current.main === 'Thunderstorm') danger += 50;
     else if (current.main === 'Snow') danger += 30;
     else if (current.main === 'Rain') danger += 20;
     else if (current.main === 'Fog') danger += 15;
-    
+
     // Humidité extrême
     if (current.humidity > 90) danger += 10;
     else if (current.humidity < 20) danger += 10;
-    
+
     return Math.min(danger, 100);
   };
 
   const dangerLevel = calculateDangerLevel();
-  
+
   const getDangerColor = (level: number): string => {
     if (level >= 70) return 'text-red-400';
     if (level >= 40) return 'text-orange-400';
@@ -52,14 +52,14 @@ const DangerGauge: React.FC<DangerGaugeProps> = ({ weatherData }) => {
   };
 
   return (
-    <div className="bg-white/5 rounded-2xl p-4">
-      <div className="flex items-center gap-2 mb-4">
-        <AlertTriangle className={`w-5 h-5 ${getDangerColor(dangerLevel)}`} />
-        <h3 className="text-white font-semibold">Danger Level</h3>
+    <div className="bg-white/5 rounded-2xl p-3 sm:p-4">
+      <div className="flex items-center gap-2 mb-3 sm:mb-4">
+        <AlertTriangle className={`w-4 h-4 sm:w-5 sm:h-5 ${getDangerColor(dangerLevel)}`} />
+        <h3 className="text-white font-semibold text-sm sm:text-base">Danger Level</h3>
       </div>
 
       {/* Gauge circulaire compact */}
-      <div className="relative w-24 h-24 mx-auto mb-4">
+      <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto mb-3 sm:mb-4">
         <svg className="w-full h-full -rotate-90" viewBox="0 0 80 80">
           {/* Cercle de fond */}
           <circle
@@ -83,11 +83,11 @@ const DangerGauge: React.FC<DangerGaugeProps> = ({ weatherData }) => {
             className="transition-all duration-1000 ease-out"
           />
         </svg>
-        
+
         {/* Valeur au centre */}
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <div className={`text-xl font-bold ${getDangerColor(dangerLevel)}`}>
+            <div className={`text-lg sm:text-xl font-bold ${getDangerColor(dangerLevel)}`}>
               {dangerLevel}
             </div>
           </div>
@@ -96,13 +96,13 @@ const DangerGauge: React.FC<DangerGaugeProps> = ({ weatherData }) => {
 
       {/* Texte de statut */}
       <div className="text-center">
-        <p className={`text-sm font-semibold ${getDangerColor(dangerLevel)}`}>
+        <p className={`text-xs sm:text-sm font-semibold ${getDangerColor(dangerLevel)}`}>
           {getDangerText(dangerLevel)}
         </p>
       </div>
 
       {/* Détails compacts */}
-      <div className="mt-4 space-y-2">
+      <div className="mt-3 sm:mt-4 space-y-2">
         <div className="flex items-center justify-between text-xs">
           <div className="flex items-center gap-1">
             <Wind className="w-3 h-3 text-blue-400" />
@@ -110,7 +110,7 @@ const DangerGauge: React.FC<DangerGaugeProps> = ({ weatherData }) => {
           </div>
           <span className="text-white">{current.windSpeed} km/h</span>
         </div>
-        
+
         <div className="flex items-center justify-between text-xs">
           <div className="flex items-center gap-1">
             <Droplets className="w-3 h-3 text-blue-400" />
