@@ -1,28 +1,4 @@
-const getWeatherKeywords = (weatherMain: string, description: string): string => {
-  const weatherKeywords: { [key: string]: string } = {
-    'Clear': 'sunny clear blue sky',
-    'Clouds': 'cloudy sky clouds',
-    'Rain': 'rainy weather raindrops',
-    'Drizzle': 'light rain drizzle',
-    'Thunderstorm': 'thunderstorm lightning storm',
-    'Snow': 'snowy winter snow',
-    'Mist': 'misty fog morning',
-    'Smoke': 'smoky atmosphere',
-    'Haze': 'hazy sky',
-    'Dust': 'dusty atmosphere',
-    'Fog': 'foggy weather',
-    'Sand': 'sandy weather',
-    'Ash': 'volcanic ash',
-    'Squall': 'stormy weather',
-    'Tornado': 'tornado storm',
-  };
-
-  return weatherKeywords[weatherMain] || `${weatherMain} weather`;
-};
-
-export const getBackgroundImage = (weatherMain: string, description: string): string => {
-  const keywords = getWeatherKeywords(weatherMain, description);
-  
+export const getBackgroundImage = (weatherMain: string): string => {
   // Utiliser des images de Pexels avec des URLs prédéfinies selon la météo
   const weatherImages: { [key: string]: string[] } = {
     'Clear': [

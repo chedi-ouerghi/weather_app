@@ -6,15 +6,15 @@ interface BackgroundImageProps {
   description: string;
 }
 
-const BackgroundImage: React.FC<BackgroundImageProps> = ({ weatherMain, description }) => {
+const BackgroundImage: React.FC<BackgroundImageProps> = ({ weatherMain }) => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const url = getBackgroundImage(weatherMain, description);
+    const url = getBackgroundImage(weatherMain);
     setImageUrl(url);
     setLoading(false);
-  }, [weatherMain, description]);
+  }, [weatherMain]);
 
   if (loading) {
     return (

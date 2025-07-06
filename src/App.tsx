@@ -36,11 +36,11 @@ function App() {
     }
   }, [lat, lon, weatherData, getWeatherByCoords]);
 
-  const handleSelectCity = (result: any) => {
+  const handleSelectCity = (result: { lat: number; lon: number }) => {
     getWeatherByCoords(result.lat, result.lon);
   };
 
-  const handleSelectRecent = (recent: any) => {
+  const handleSelectRecent = (recent: { id: string }) => {
     const [lat, lon] = recent.id.split('-').map(Number);
     getWeatherByCoords(lat, lon);
   };

@@ -48,7 +48,7 @@ export const weatherApi = {
       );
 
       if (response.data.results) {
-        return response.data.results.map((city: any) => ({
+        return response.data.results.map((city: { name: string; country: string; admin1: string; latitude: number; longitude: number }) => ({
           name: city.name,
           country: city.country,
           state: city.admin1,
@@ -57,7 +57,7 @@ export const weatherApi = {
         }));
       }
       return [];
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Erreur lors de la recherche de villes:', error);
       throw new Error('Impossible de rechercher les villes');
     }
@@ -156,14 +156,14 @@ export const weatherApi = {
         forecast: dailyForecast,
         hourly: hourlyForecast,
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Erreur lors de la récupération des données météo:', error);
 
-      if (error.response?.status === 400) {
+      if ((error as { response?: { status?: number } }).response?.status === 400) {
         throw new Error('Coordonnées invalides.');
-      } else if (error.response?.status === 429) {
+      } else if ((error as { response?: { status?: number } }).response?.status === 429) {
         throw new Error('Limite de requêtes dépassée. Veuillez réessayer plus tard.');
-      } else if (error.code === 'NETWORK_ERROR') {
+      } else if ((error as { code?: string }).code === 'NETWORK_ERROR') {
         throw new Error('Erreur de connexion. Vérifiez votre connexion internet.');
       } else {
         throw new Error('Impossible de récupérer les données météo. Veuillez réessayer.');

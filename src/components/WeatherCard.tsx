@@ -1,11 +1,10 @@
 import React from 'react';
-import { 
-  Thermometer, 
-  Droplets, 
-  Wind, 
-  Eye, 
-  Gauge, 
-  RotateCcw 
+import {
+  Droplets,
+  Wind,
+  Eye,
+  Gauge,
+  RotateCcw
 } from 'lucide-react';
 import { WeatherData, TemperatureUnit } from '../types/weather';
 
@@ -93,7 +92,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
             <p className="text-white font-semibold">{current.humidity}%</p>
           </div>
         </div>
-        
+
         <div className="flex items-center gap-3 p-3 bg-white/5 rounded-xl">
           <Wind className="w-5 h-5 text-green-400" />
           <div>
@@ -101,7 +100,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
             <p className="text-white font-semibold">{current.windSpeed} km/h</p>
           </div>
         </div>
-        
+
         <div className="flex items-center gap-3 p-3 bg-white/5 rounded-xl">
           <Gauge className="w-5 h-5 text-purple-400" />
           <div>
@@ -109,7 +108,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
             <p className="text-white font-semibold">{current.pressure} hPa</p>
           </div>
         </div>
-        
+
         <div className="flex items-center gap-3 p-3 bg-white/5 rounded-xl">
           <Eye className="w-5 h-5 text-orange-400" />
           <div>

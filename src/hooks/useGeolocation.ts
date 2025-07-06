@@ -34,17 +34,17 @@ export const useGeolocation = () => {
       });
     };
 
-    const handleError = (error: GeolocationPositionError) => {
+    const handleError = (_error: GeolocationPositionError) => {
       let errorMessage = 'Erreur de géolocalisation';
-      
-      switch (error.code) {
-        case error.PERMISSION_DENIED:
+
+      switch (_error.code) {
+        case _error.PERMISSION_DENIED:
           errorMessage = 'Permission de géolocalisation refusée';
           break;
-        case error.POSITION_UNAVAILABLE:
+        case _error.POSITION_UNAVAILABLE:
           errorMessage = 'Position indisponible';
           break;
-        case error.TIMEOUT:
+        case _error.TIMEOUT:
           errorMessage = 'Timeout de géolocalisation';
           break;
       }
@@ -69,7 +69,7 @@ export const useGeolocation = () => {
 
   const requestLocation = () => {
     setState(prev => ({ ...prev, loading: true, error: null }));
-    
+
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setState({
@@ -79,7 +79,7 @@ export const useGeolocation = () => {
           loading: false,
         });
       },
-      (error) => {
+      () => {
         setState(prev => ({
           ...prev,
           error: 'Impossible d\'obtenir votre position',

@@ -158,7 +158,7 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
             size: 12,
             weight: 'bold',
           },
-          callback: function(value) {
+          callback: function (value) {
             return `${value}${tempSymbol}`;
           },
         },
@@ -178,14 +178,14 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
   return (
     <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 transition-all duration-300 hover:bg-white/15">
       <h3 className="text-xl font-bold text-white mb-6">Prévision 7 jours</h3>
-      
+
       <div className="h-80 mb-6">
         <Line data={data} options={options} />
       </div>
 
       {/* Résumé des prévisions */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
-        {forecast.map((day, index) => (
+        {forecast.map((day) => (
           <div key={day.date} className="text-center p-2 bg-white/5 rounded-xl">
             <div className="text-white/60 text-xs mb-1">
               {new Date(day.date).toLocaleDateString('fr-FR', { weekday: 'short' })}
