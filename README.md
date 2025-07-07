@@ -15,6 +15,7 @@ Une application météo moderne et élégante construite avec React, Vite et Tai
 - **Design responsive** adapté à tous les écrans
 - **Animations fluides** et micro-interactions
 - **Interface sans scroll** avec layout en grille optimisé
+- **Support PWA** pour installation sur mobile et desktop
 
 ## 🎨 Design
 
@@ -30,7 +31,7 @@ Une application météo moderne et élégante construite avec React, Vite et Tai
 
 1. **Cloner le repository**
    ```bash
-   git clone <url-du-repo>
+   git clone https://github.com/chedi-ouerghi/weather_app.git
    cd weather_app
    ```
 
@@ -55,7 +56,9 @@ L'application sera disponible sur `http://localhost:5173`
 - **TypeScript** - Typage statique
 - **Tailwind CSS** - Framework CSS
 - **Lucide React** - Icônes modernes
+- **Chart.js** - Graphiques interactifs
 - **Open-Meteo API** - Données météo gratuites
+- **Vite PWA Plugin** - Support PWA
 
 ## 📁 Structure du projet
 
@@ -71,7 +74,8 @@ src/
 │   └── WeatherForecast.tsx     # Prévision horaire
 ├── hooks/
 │   ├── useGeolocation.ts       # Hook de géolocalisation
-│   └── useWeather.ts           # Hook de gestion météo
+│   ├── useWeather.ts           # Hook de gestion météo
+│   └── useBackgroundImage.ts   # Hook de gestion des images
 ├── types/
 │   └── weather.ts              # Types TypeScript
 ├── utils/
@@ -79,6 +83,10 @@ src/
 │   └── weatherApi.ts           # API Open-Meteo
 ├── App.tsx                     # Composant principal
 └── main.tsx                    # Point d'entrée
+public/
+├── favicon.svg                 # Icône PWA
+├── robots.txt                  # Configuration SEO
+└── apple-touch-icon.png        # Icône Apple
 ```
 
 ## 🌐 APIs utilisées
@@ -110,6 +118,12 @@ src/
 - Animations fluides et micro-interactions
 - Support complet mobile et desktop
 
+### PWA (Progressive Web App)
+- **Installation** sur mobile et desktop
+- **Mode hors-ligne** avec cache intelligent
+- **Performance optimisée** pour tous les appareils
+- **Interface native** avec animations fluides
+
 ## 🔧 Scripts disponibles
 
 - `npm run dev` - Lancer en mode développement
@@ -124,6 +138,7 @@ src/
 - **Accessibilité** respectant les standards WCAG
 - **Performance** optimisée pour tous les appareils
 - **Pas de clé API** : Utilisation d'Open-Meteo entièrement gratuit
+- **PWA** : Installation et fonctionnement hors-ligne
 
 ## 🎯 Prochaines améliorations
 
@@ -134,15 +149,30 @@ src/
 - [ ] Intégration avec d'autres APIs météo
 - [ ] Prévisions horaires détaillées
 - [ ] Alertes météo personnalisées
+- [ ] Synchronisation multi-appareils
 
 ## 📄 Licence
 
-MIT License - voir le fichier LICENSE pour plus de détails.
+MIT License - voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
 ## 🤝 Contribution
 
 Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou une pull request.
 
+1. Fork le projet
+2. Créer une branche pour votre fonctionnalité (`git checkout -b feature/AmazingFeature`)
+3. Commit vos changements (`git commit -m 'Add some AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
+
+## 📞 Contact
+
+**Chedi Ouerghi** - [@chedi-ouerghi](https://github.com/chedi-ouerghi)
+
+Lien du projet: [https://github.com/chedi-ouerghi/weather_app](https://github.com/chedi-ouerghi/weather_app)
+
 ---
 
 **WeatherApp** - Une expérience météo moderne et intuitive 🌤️
+
+*Développé avec ❤️ par Chedi Ouerghi*
