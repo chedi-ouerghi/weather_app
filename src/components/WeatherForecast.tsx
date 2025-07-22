@@ -1,6 +1,6 @@
-import React from 'react';
 import { Droplets } from 'lucide-react';
-import { WeatherData, TemperatureUnit } from '../types/weather';
+import React from 'react';
+import { TemperatureUnit, WeatherData } from '../types/weather';
 
 interface WeatherForecastProps {
   weatherData: WeatherData;
@@ -30,8 +30,7 @@ const WeatherForecast: React.FC<WeatherForecastProps> = ({
           return (
             <div
               key={hour.time}
-              className={`flex-shrink-0 text-center p-2 sm:p-4 rounded-2xl transition-all duration-300 hover:scale-105 ${isNow ? 'bg-blue-500/20 border border-blue-400/30' : 'bg-white/5 hover:bg-white/10'
-                }`}
+              className={`flex-shrink-0 text-center p-2 sm:p-4 rounded-2xl transition-all duration-300 hover:scale-105 shadow-md ${isNow ? 'bg-blue-500/30 border border-blue-400/40 animate-pulse' : 'bg-white/10 hover:bg-white/20'}`}
             >
               <div className="text-white/60 text-xs sm:text-sm font-medium mb-1 sm:mb-2">
                 {isNow ? 'Maintenant' : time.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}

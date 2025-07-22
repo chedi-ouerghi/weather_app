@@ -60,6 +60,7 @@ function App() {
         <BackgroundImage
           weatherMain={weatherData.current.main}
           description={weatherData.current.description}
+          temp={weatherData.current.temp}
         />
       )}
 

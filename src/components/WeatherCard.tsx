@@ -1,12 +1,12 @@
-import React from 'react';
 import {
-  Droplets,
-  Wind,
-  Eye,
-  Gauge,
-  RotateCcw
+    Droplets,
+    Eye,
+    Gauge,
+    RotateCcw,
+    Wind
 } from 'lucide-react';
-import { WeatherData, TemperatureUnit } from '../types/weather';
+import React from 'react';
+import { TemperatureUnit, WeatherData } from '../types/weather';
 
 interface WeatherCardProps {
   weatherData: WeatherData;
@@ -52,7 +52,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
             className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 drop-shadow-lg"
           />
           <div>
-            <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-2">
+            <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-2 transition-all duration-500 animate-pulse">
               {convertTemperature(current.temp, temperatureUnit)}
               <span className="text-lg sm:text-xl md:text-2xl font-normal">{tempSymbol}</span>
             </div>

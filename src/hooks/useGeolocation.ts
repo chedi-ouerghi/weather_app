@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface GeolocationState {
   lat: number | null;
   lon: number | null;
   error: string | null;
   loading: boolean;
+  denied: boolean;
 }
 
 export const useGeolocation = () => {
@@ -13,6 +14,7 @@ export const useGeolocation = () => {
     lon: null,
     error: null,
     loading: true,
+    denied: false,
   });
 
   useEffect(() => {
@@ -21,6 +23,7 @@ export const useGeolocation = () => {
         ...prev,
         error: 'La géolocalisation n\'est pas supportée par ce navigateur',
         loading: false,
+        denied: true,
       }));
       return;
     }
@@ -31,15 +34,17 @@ export const useGeolocation = () => {
         lon: position.coords.longitude,
         error: null,
         loading: false,
+        denied: false,
       });
     };
 
     const handleError = (_error: GeolocationPositionError) => {
       let errorMessage = 'Erreur de géolocalisation';
-
+      let denied = false;
       switch (_error.code) {
         case _error.PERMISSION_DENIED:
           errorMessage = 'Permission de géolocalisation refusée';
+          denied = true;
           break;
         case _error.POSITION_UNAVAILABLE:
           errorMessage = 'Position indisponible';
@@ -48,11 +53,11 @@ export const useGeolocation = () => {
           errorMessage = 'Timeout de géolocalisation';
           break;
       }
-
       setState(prev => ({
         ...prev,
         error: errorMessage,
         loading: false,
+        denied,
       }));
     };
 
@@ -68,8 +73,7 @@ export const useGeolocation = () => {
   }, []);
 
   const requestLocation = () => {
-    setState(prev => ({ ...prev, loading: true, error: null }));
-
+    setState(prev => ({ ...prev, loading: true, error: null, denied: false }));
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setState({
@@ -77,13 +81,21 @@ export const useGeolocation = () => {
           lon: position.coords.longitude,
           error: null,
           loading: false,
+          denied: false,
         });
       },
-      () => {
+      (_error) => {
+        let errorMessage = 'Impossible d\'obtenir votre position';
+        let denied = false;
+        if (_error.code === _error.PERMISSION_DENIED) {
+          errorMessage = 'Permission de géolocalisation refusée';
+          denied = true;
+        }
         setState(prev => ({
           ...prev,
-          error: 'Impossible d\'obtenir votre position',
+          error: errorMessage,
           loading: false,
+          denied,
         }));
       }
     );

@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { Search, MapPin, Clock, Navigation } from 'lucide-react';
-import { SearchResult, RecentSearch } from '../types/weather';
+import { Clock, MapPin, Navigation, Search } from 'lucide-react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { RecentSearch, SearchResult } from '../types/weather';
 
 interface CitySearchProps {
   onSearch: (query: string) => void;
@@ -119,8 +119,14 @@ const CitySearch: React.FC<CitySearchProps> = ({
             onKeyDown={handleKeyDown}
             onFocus={() => setIsOpen(true)}
             placeholder="Rechercher une ville..."
-            className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-transparent transition-all duration-300 text-sm sm:text-lg group-hover:bg-white/15"
+            className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-blue-400/50 focus:border-transparent transition-all duration-300 text-sm sm:text-lg group-hover:bg-white/15 focus:ring-2 focus:ring-blue-500"
+            autoComplete="off"
           />
+          {loading && (
+            <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+              <div className="w-4 h-4 border-2 border-blue-400/30 border-t-blue-500 rounded-full animate-spin" />
+            </div>
+          )}
         </div>
       </div>
 

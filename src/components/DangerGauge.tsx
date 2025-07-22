@@ -1,5 +1,5 @@
+import { AlertTriangle, Droplets, Wind } from 'lucide-react';
 import React from 'react';
-import { AlertTriangle, Wind, Droplets } from 'lucide-react';
 import { WeatherData } from '../types/weather';
 
 interface DangerGaugeProps {
@@ -37,6 +37,19 @@ const DangerGauge: React.FC<DangerGaugeProps> = ({ weatherData }) => {
 
   const dangerLevel = calculateDangerLevel();
 
+  // Déterminer le type de danger principal
+  let mainDanger = '';
+  if (current.temp < -10) mainDanger = 'Froid extrême';
+  else if (current.temp > 35) mainDanger = 'Canicule';
+  else if (current.main === 'Thunderstorm') mainDanger = 'Orage';
+  else if (current.main === 'Snow') mainDanger = 'Neige';
+  else if (current.main === 'Rain') mainDanger = 'Pluie';
+  else if (current.main === 'Fog' || current.main === 'Mist') mainDanger = 'Brouillard';
+  else if (current.windSpeed > 50) mainDanger = 'Vent violent';
+  else if (dangerLevel >= 70) mainDanger = 'Conditions dangereuses';
+  else if (dangerLevel >= 40) mainDanger = 'Conditions modérées';
+  else mainDanger = 'Situation normale';
+
   const getDangerColor = (level: number): string => {
     if (level >= 70) return 'text-red-400';
     if (level >= 40) return 'text-orange-400';
@@ -55,7 +68,10 @@ const DangerGauge: React.FC<DangerGaugeProps> = ({ weatherData }) => {
     <div className="bg-white/5 rounded-2xl p-3 sm:p-4">
       <div className="flex items-center gap-2 mb-3 sm:mb-4">
         <AlertTriangle className={`w-4 h-4 sm:w-5 sm:h-5 ${getDangerColor(dangerLevel)}`} />
-        <h3 className="text-white font-semibold text-sm sm:text-base">Danger Level</h3>
+        <h3 className="text-white font-semibold text-sm sm:text-base">Danger météo</h3>
+      </div>
+      <div className="text-center mb-2">
+        <span className={`inline-block px-2 py-1 rounded-full text-xs font-bold ${getDangerColor(dangerLevel)} bg-white/10`}>{mainDanger}</span>
       </div>
 
       {/* Gauge circulaire compact */}

@@ -1,17 +1,17 @@
-import React from 'react';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler,
+    CategoryScale,
+    Chart as ChartJS,
+    Filler,
+    Legend,
+    LinearScale,
+    LineElement,
+    PointElement,
+    Title,
+    Tooltip,
 } from 'chart.js';
+import React from 'react';
 import { Line } from 'react-chartjs-2';
-import { WeatherData, TemperatureUnit } from '../types/weather';
+import { TemperatureUnit, WeatherData } from '../types/weather';
 
 ChartJS.register(
   CategoryScale,
@@ -55,15 +55,15 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
         label: `Max ${tempSymbol}`,
         data: maxTemps,
         borderColor: 'rgb(239, 68, 68)',
-        backgroundColor: 'rgba(239, 68, 68, 0.1)',
-        borderWidth: 2,
+        backgroundColor: 'rgba(239, 68, 68, 0.15)',
+        borderWidth: 3,
         fill: true,
-        tension: 0.4,
-        pointRadius: 4,
+        tension: 0.5,
+        pointRadius: 5,
         pointBackgroundColor: 'rgb(239, 68, 68)',
         pointBorderColor: 'white',
         pointBorderWidth: 2,
-        pointHoverRadius: 6,
+        pointHoverRadius: 8,
         pointHoverBackgroundColor: 'rgb(239, 68, 68)',
         pointHoverBorderColor: 'white',
         pointHoverBorderWidth: 3,
@@ -72,15 +72,15 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
         label: `Min ${tempSymbol}`,
         data: minTemps,
         borderColor: 'rgb(59, 130, 246)',
-        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-        borderWidth: 2,
+        backgroundColor: 'rgba(59, 130, 246, 0.15)',
+        borderWidth: 3,
         fill: true,
-        tension: 0.4,
-        pointRadius: 4,
+        tension: 0.5,
+        pointRadius: 5,
         pointBackgroundColor: 'rgb(59, 130, 246)',
         pointBorderColor: 'white',
         pointBorderWidth: 2,
-        pointHoverRadius: 6,
+        pointHoverRadius: 8,
         pointHoverBackgroundColor: 'rgb(59, 130, 246)',
         pointHoverBorderColor: 'white',
         pointHoverBorderWidth: 3,
@@ -102,27 +102,28 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
         labels: {
           color: 'white',
           font: {
-            size: 12,
+            size: 14,
             weight: 'bold',
           },
           usePointStyle: true,
           pointStyle: 'circle',
+          padding: 20,
         },
       },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backgroundColor: 'rgba(0, 0, 0, 0.9)',
         titleColor: 'white',
         bodyColor: 'white',
-        borderColor: 'rgba(255, 255, 255, 0.2)',
-        borderWidth: 1,
-        cornerRadius: 12,
+        borderColor: 'rgba(59, 130, 246, 0.5)',
+        borderWidth: 2,
+        cornerRadius: 14,
         displayColors: true,
         titleFont: {
-          size: 14,
+          size: 16,
           weight: 'bold',
         },
         bodyFont: {
-          size: 12,
+          size: 14,
         },
         callbacks: {
           label: (context) => {
@@ -170,8 +171,8 @@ const TemperatureChart: React.FC<TemperatureChartProps> = ({
       },
     },
     animation: {
-      duration: 2000,
-      easing: 'easeInOutQuart' as const,
+      duration: 2500,
+      easing: 'easeInOutCubic' as const,
     },
   };
 

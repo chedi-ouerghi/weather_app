@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
-import { getBackgroundImage } from '../utils/imageApi';
+import { useEffect, useRef, useState } from 'react';
+import { getWeatherBackground } from '../utils/imageApi';
 
-export const useBackgroundImage = (weatherMain: string) => {
+export const useBackgroundImage = (main: string, description: string, temp: number, date: Date) => {
     const [imageUrl, setImageUrl] = useState<string>('');
     const [loading, setLoading] = useState(true);
     const [fadeOut, setFadeOut] = useState(false);
-    const previousWeatherRef = useRef<string>('');
+    const previousKeyRef = useRef<string>('');
     const imageCacheRef = useRef<Map<string, string>>(new Map());
 
     useEffect(() => {
@@ -18,51 +18,37 @@ export const useBackgroundImage = (weatherMain: string) => {
             });
         };
 
+        const key = `${main}-${description}-${temp}-${date.getHours()}`;
+
         const updateBackground = async () => {
             // Si la météo a changé, déclencher une transition
-            if (previousWeatherRef.current && previousWeatherRef.current !== weatherMain) {
+            if (previousKeyRef.current && previousKeyRef.current !== key) {
                 setFadeOut(true);
 
-                // Attendre la fin de la transition de fade-out
                 setTimeout(async () => {
                     try {
-                        const newUrl = getBackgroundImage(weatherMain);
-
-                        // Précharger l'image
+                        const newUrl = getWeatherBackground(main, description, temp, date);
                         await loadImage(newUrl);
-
                         setImageUrl(newUrl);
                         setLoading(false);
                         setFadeOut(false);
-                        previousWeatherRef.current = weatherMain;
-
-                        // Mettre en cache
-                        imageCacheRef.current.set(weatherMain, newUrl);
+                        previousKeyRef.current = key;
+                        imageCacheRef.current.set(key, newUrl);
                     } catch (error) {
-                        console.error('Erreur lors du chargement de l\'image:', error);
-                        // Utiliser une image de fallback
                         setImageUrl('https://images.pexels.com/photos/281260/pexels-photo-281260.jpeg?auto=compress&cs=tinysrgb&w=1920');
                         setLoading(false);
                         setFadeOut(false);
                     }
                 }, 300);
             } else {
-                // Première charge ou même météo
                 try {
-                    const url = getBackgroundImage(weatherMain);
-
-                    // Précharger l'image
+                    const url = getWeatherBackground(main, description, temp, date);
                     await loadImage(url);
-
                     setImageUrl(url);
                     setLoading(false);
-                    previousWeatherRef.current = weatherMain;
-
-                    // Mettre en cache
-                    imageCacheRef.current.set(weatherMain, url);
+                    previousKeyRef.current = key;
+                    imageCacheRef.current.set(key, url);
                 } catch (error) {
-                    console.error('Erreur lors du chargement de l\'image:', error);
-                    // Utiliser une image de fallback
                     setImageUrl('https://images.pexels.com/photos/281260/pexels-photo-281260.jpeg?auto=compress&cs=tinysrgb&w=1920');
                     setLoading(false);
                 }
@@ -70,7 +56,7 @@ export const useBackgroundImage = (weatherMain: string) => {
         };
 
         updateBackground();
-    }, [weatherMain]);
+    }, [main, description, temp, date]);
 
     return {
         imageUrl,

@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
-import { WeatherData, SearchResult, RecentSearch, TemperatureUnit } from '../types/weather';
+import { useCallback, useEffect, useState } from 'react';
+import { RecentSearch, SearchResult, TemperatureUnit, WeatherData } from '../types/weather';
 import { weatherApi } from '../utils/weatherApi';
 
 export const useWeather = () => {
@@ -56,7 +56,7 @@ export const useWeather = () => {
         country: data.location.country,
         lastSearched: new Date().toISOString(),
         quickWeather: {
-          temp: data.current.temp,
+          temp: data.current.temp, // toujours la température réelle
           description: data.current.description,
           icon: data.current.icon,
         },
@@ -91,7 +91,7 @@ export const useWeather = () => {
         country: data.location.country,
         lastSearched: new Date().toISOString(),
         quickWeather: {
-          temp: data.current.temp,
+          temp: data.current.temp, // toujours la température réelle
           description: data.current.description,
           icon: data.current.icon,
         },
